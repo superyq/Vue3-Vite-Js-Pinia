@@ -81,6 +81,7 @@ export default defineConfig({
   },
   define: {
     // 解决 process.env 找不到 (process is not defined)
+    // 使用 import.meta.env.VITE_APP_BASE_API 调用环境变量
     "process.env": {},
   },
 });
