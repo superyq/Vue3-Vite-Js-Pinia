@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import { resolve } from "path";
 
 // https://vitejs.dev/config/
@@ -49,7 +50,8 @@ export default defineConfig({
     },
   },
   plugins: [
-    vue(),
+    vue({ reactivityTransform: true }), // 使用$ref语法糖
+    // vue(), // 使用$ref语法糖
     createSvgIconsPlugin({
       // 指定缓存文件
       iconDirs: [resolve(process.cwd(), "src/assets/svg")],
@@ -71,13 +73,6 @@ export default defineConfig({
     chunkSizeWarningLimit: 2000,
     // 启用/禁用 gzip 压缩大小报告
     reportCompressedSize: false,
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: '@import "@/assets/style/index.scss";',
-      },
-    },
   },
   define: {
     // 解决 process.env 找不到 (process is not defined)

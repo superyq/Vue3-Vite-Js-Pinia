@@ -1,8 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="layout">layout</div>
-  <router-view></router-view>
+  <div class="home">home</div>
 </template>
 
 <style lang="scss" scoped></style>

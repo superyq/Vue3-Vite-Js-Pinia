@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useUserStore } from "@/store/user.js";
 import { getToken } from "@/utils/auth.js";
 
 // 请求和响应的消息主体用什么方式编码
@@ -12,7 +13,7 @@ const service = axios.create({
 service.interceptors.request.use((config) => {
   // 是否需要 token
   const isToken = (config.headers || {}).isToken === true;
-  if (getToken() && !isToken) {
+  if (getToken() && !!isToken) {
     // 让请求携带token
     config.headers["Authorization"] = "Bearer " + getToken();
   }

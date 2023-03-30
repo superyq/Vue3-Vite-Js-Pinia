@@ -1,0 +1,13 @@
+// 共用css style
+.c-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: $color-red;
+}

@@ -1,8 +1,9 @@
 <script setup></script>
 
 <template>
-  <div class="layout">layout</div>
-  <router-view></router-view>
+  <div class="demo">
+    <svg-icon name="code" color="red"></svg-icon>
+  </div>
 </template>
 
 <style lang="scss" scoped></style>
