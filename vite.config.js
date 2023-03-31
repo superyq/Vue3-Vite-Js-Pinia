@@ -50,8 +50,8 @@ export default defineConfig({
     },
   },
   plugins: [
-    vue({ reactivityTransform: true }), // 使用$ref语法糖
-    // vue(), // 使用$ref语法糖
+    // vue({ reactivityTransform: true }), // 使用$ref语法糖
+    vue(), // 使用$ref语法糖
     createSvgIconsPlugin({
       // 指定缓存文件
       iconDirs: [resolve(process.cwd(), "src/assets/svg")],

@@ -1,60 +1,67 @@
 <script setup>
 import Cookies from "js-cookie";
+import { ref, reactive } from "vue";
 import { NInput, NButton, NCheckbox } from "naive-ui";
-import router from "@/router/index.js";
+// import router from "@/router/index.js";
+import { useRouter, useRoute } from "vue-router";
 import { useUserStore } from "@/store/user.js";
 import { encrypt, decrypt } from "@/utils/jsencrypt";
 import { getCodeImg } from "@/api/login.js";
 import CopeRight from "@/components/CopyRight.vue";
 
+let router = useRouter();
+let route = useRoute();
+console.log(route.params);
 // 用户状态管理
 let userStore = useUserStore();
 
 // 是否需要验证码
-let captchaEnabled = $ref(true);
-let codeUrl = $ref("");
+let captchaEnabled = ref(true);
+let codeUrl = ref("");
 // 获取图形验证码
 function getCode() {
   getCodeImg().then((res) => {
-    captchaEnabled =
+    captchaEnabled.value =
       res.captchaEnabled === undefined ? true : res.captchaEnabled;
-    if (captchaEnabled) {
-      codeUrl = "data:image/gif;base64," + res.img;
-      uuid = res.uuid;
+    if (captchaEnabled.value) {
+      codeUrl.value = "data:image/gif;base64," + res.img;
+      form.uuid = res.uuid;
     }
   });
 }
-captchaEnabled && getCode();
+captchaEnabled.value && getCode();
 
 // 登录账号
-let username = $ref("");
-let password = $ref("");
-let code = $ref("");
-let uuid = $ref("");
-let rememberMe = $ref(false);
-let loginBtnState = $ref(false);
+let form = reactive({
+  username: "",
+  password: "",
+  code: "",
+  uuid: "",
+});
+let rememberMe = ref(false);
+let loginBtnState = ref(false);
 function validate() {
-  if (username == "admin") {
+  if (form.username == "admin") {
     window.$msg.error("用户名admin为特殊账号，不能作为用户名登录");
-    username = "";
+    form.username = "";
   }
 }
 function handleLogin() {
   // 验证输入
-  if (!username || !password) {
+  if (!form.username || !form.password) {
     return window.$msg.error("用户名和密码不能为空！");
   }
-  if (captchaEnabled && !code) {
+  if (captchaEnabled.value && !form.code) {
     return window.$msg.error("验证码不能为空！");
   }
 
   // 记住密码
-  if (rememberMe) {
-    Cookies.set("username", username, { expires: 30 });
-    Cookies.set("password", encrypt(password), {
+  if (rememberMe.value) {
+    Cookies.set("username", form.username, { expires: 30 });
+    Cookies.set("password", encrypt(form.password), {
       expires: 30,
     });
-    Cookies.set("rememberMe", rememberMe, {
+    Cookies.set("rememberMe", rememberMe.value, {
       expires: 30,
     });
   } else {
@@ -65,7 +72,7 @@ function handleLogin() {
 
   loginBtnState = true;
   userStore
-    .login({ username, password, code, uuid })
+    .login(form)
     .then(() => {
       router.push({ name: "home" });
       loginBtnState = false;
@@ -78,8 +85,8 @@ function handleLogin() {
 
 // 获取默认登录账号
 function getCookie() {
-  username = Cookies.get("username") || "";
-  password = decrypt(Cookies.get("password")) || "";
+  form.username = Cookies.get("username") || "";
+  form.password = decrypt(Cookies.get("password")) || "";
   rememberMe = Boolean(Cookies.get("remenberMe")) || false;
 }
 getCookie();
@@ -92,6 +99,7 @@ function handleForget() {
 
 <template>
   <div class="login-bg">
+    {{ $route.params }}
     <div class="login-contain">
       <div class="login-logo__box">
         <div class="login-logo">
@@ -101,7 +109,7 @@ function handleForget() {
       <div class="login-form__box">
         <n-input
           class="login-input"
-          v-model:value="username"
+          v-model:value="form.username"
           placeholder="请输入用户名/手机号"
           @blur="validate"
         >
@@ -111,7 +119,7 @@ function handleForget() {
         </n-input>
         <n-input
           class="login-input"
-          v-model:value="password"
+          v-model:value="form.password"
           placeholder="请输入密码"
           type="password"
           show-password-on="mousedown"
@@ -123,7 +131,7 @@ function handleForget() {
         </n-input>
         <div class="login-code" v-if="captchaEnabled">
           <n-input
-            v-model:value="code"
+            v-model:value="form.code"
             class="login-input login-input_code"
             placeholder="验证码"
             @keyup.enter="handleLogin"
