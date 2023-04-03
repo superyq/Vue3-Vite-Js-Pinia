@@ -14,12 +14,14 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 p {
-  font-size: 14px;
-  color: #6e7377;
   position: absolute;
   bottom: 15px;
   left: 0;
   right: 0;
   text-align: center;
+  color: #fff;
+  font-family: Arial;
+  font-size: 12px;
+  letter-spacing: 1px;
 }
 </style>

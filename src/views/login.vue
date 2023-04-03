@@ -2,7 +2,6 @@
 import Cookies from "js-cookie";
 import { ref, reactive } from "vue";
 import { NInput, NButton, NCheckbox } from "naive-ui";
-// import router from "@/router/index.js";
 import { useRouter, useRoute } from "vue-router";
 import { useUserStore } from "@/store/user.js";
 import { encrypt, decrypt } from "@/utils/jsencrypt";
@@ -168,7 +167,7 @@ function handleForget() {
 .login-bg {
   width: 100vw;
   height: 100vh;
-  background-image: url("@/assets/images/login_bg.png");
+  background-image: url("@/assets/images/login-bg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;

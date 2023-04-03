@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useUserStore } from "@/store/user.js";
 import { getToken } from "@/utils/auth.js";
+import { tansParams } from "@/utils/common.js";
 
 // 请求和响应的消息主体用什么方式编码
 axios.defaults.headers["Content-Type"] = "application/json;charset=utf-8";
