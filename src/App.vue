@@ -1,24 +1,21 @@
-<script setup>
-import {
-  NMessageProvider,
-  NDialogProvider,
-  NConfigProvider,
-  zhCN,
-  dateZhCN,
-} from "naive-ui";
-
-import MessageProvider from "@/components/MessageProvider.vue";
-</script>
+<script setup></script>
 
 <template>
-  <n-message-provider>
-    <message-provider></message-provider>
-  </n-message-provider>
-  <n-dialog-provider>
-    <n-config-provider :locale="zhCN" :date-locale="dateZhCN">
-      <router-view></router-view>
-    </n-config-provider>
-  </n-dialog-provider>
+  <div class="demo">
+    <div>yqcoder</div>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+.demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  div {
+    margin: 20px auto;
+    width: 100px;
+    height: 100px;
+    border: 1px solid;
+  }
+}
+</style>

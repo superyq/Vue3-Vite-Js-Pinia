@@ -51,14 +51,14 @@ fieldset,
 form,
 label,
 legend,
-table,
+// table,
 caption,
 tbody,
 tfoot,
 thead,
-tr,
+// tr,
 th,
-td,
+// td,
 article,
 aside,
 canvas,
@@ -111,10 +111,6 @@ ul {
   list-style: none;
 }
 
-a {
-  text-decoration: none;
-}
-
 blockquote,
 q {
   quotes: none;
@@ -128,10 +124,10 @@ q:after {
   content: none;
 }
 
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
+// table {
+//   border-collapse: collapse;
+//   border-spacing: 0;
+// }
 
 html,
 body {
